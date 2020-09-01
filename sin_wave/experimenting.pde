@@ -3,16 +3,21 @@ float x = -200.0;
 float y = 0.0;
 float startAngle = 0;
 float angleVel = 0.23;
-int n = 100;
+int n = 200;
 
 void setup() {
   size(800,600);
   ball = new Object[n];
-  for(int i = 0; i < ball.length; i++){
+  for(int i = 0; i < ball.length/2; i++){
     x += 15;
-    ball[i] = new Object(x -2,y);
+    ball[i] = new Object(x,y);
   }
   frameRate(60);
+  x= -170;
+  for(int i = n/2; i < ball.length; i++){
+    x += 15;
+    ball[i] = new Object(x,y);
+  }
 }
 
 void draw() {
@@ -28,11 +33,12 @@ void draw() {
     angle += angleVel;
   }
   
-  if(ball[98].xcoord < 0){
-    if(ball[50].xcoord > 0){
-         for(int i = 0; i < ball.length; i++){
-         ball[i].xcoord += 6;    
-        }
-     } // cane be bothered fixing this yet
+    for(int i = n/2; i < ball.length; i++){
+    y = map(cos(angle),-1,1,0,height);
+    ball[i].place(y);
+    ball[i].display();
+    angle += angleVel;
   }
+    
+
 }
